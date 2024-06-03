@@ -2,7 +2,7 @@
   <h1 class="mb-5">New Game</h1>
   <div class="mb-5 flex">
     <% @letters.each do |letter| %>
-      <span class="alert alert-primary fs-1"><%= letter %></span>
+      <span class="alert alert-primary fs-1 letter"><%= letter %></span>
     <% end %>
   </div>
   <form action="score" method="post" data-turbo="false" class="mb-3">

@@ -10,15 +10,15 @@ class GamesController < ApplicationController
     @guess = params[:word].upcase
     @letters = params[:letters]
 
-    @score = if included?(@guess, @letters)
-               if english_word?(@guess)
-                 "Congratulations! #{@guess} is a valid English word!"
-               else
-                 "Sorry but #{@guess} doest not seem to be a valid English word..."
-               end
-             else
-               "Sorry but #{@guess} cant be build out of #{@letters}"
-             end
+    @result = if included?(@guess, @letters)
+                if english_word?(@guess)
+                  ["Congratulations! #{@guess} is a valid English word", calculate_score(@guess)]
+                else
+                  ["Sorry but #{@guess} doest not seem to be a valid English word...", 0]
+                end
+              else
+                ["Sorry but #{@guess} cant be build out of #{@letters}", 0]
+              end
   end
 
   private
@@ -31,5 +31,9 @@ class GamesController < ApplicationController
     response = URI.parse("https://dictionary.lewagon.com/#{guess}")
     word = JSON.parse(response.read)
     word['found']
+  end
+
+  def calculate_score(guess)
+    guess.length**2
   end
 end

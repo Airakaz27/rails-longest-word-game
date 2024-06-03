@@ -1,6 +1,12 @@
 <div class="container mt-5">
   <h1>Result</h1>
   <div class="mb-4">
-   <%= @score %>
+    <% if @result[1] > 0 %>
+      <p class="alert alert-success mb-3"><%= @result[0] %></p>
+      <p>Score: <span class="fs-3"><%= @result[1] %></span></p>
+    <% else %>
+      <p class="alert alert-secondary mb-3"><%= @result[0] %></p>
+      <p>Score: <span class="fs-3"><%= @result[1] %></span></p>
+    <% end %>
   </div>
 </div>
