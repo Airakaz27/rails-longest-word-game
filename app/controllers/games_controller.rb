@@ -8,11 +8,12 @@ class GamesController < ApplicationController
 
   def score
     @guess = params[:word].upcase
+    session[:score] ||= 0
     @letters = params[:letters]
 
     @result = if included?(@guess, @letters)
                 if english_word?(@guess)
-                  ["Congratulations! #{@guess} is a valid English word", calculate_score(@guess)]
+                  ["Congratulations! #{@guess} is a valid English word", session[:score] += calculate_score(@guess)]
                 else
                   ["Sorry but #{@guess} doest not seem to be a valid English word...", 0]
                 end
